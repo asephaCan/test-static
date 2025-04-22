@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Insurance Prior Authorization Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Header -->
+            <header class="col-md-12 bg-primary text-white p-3">
+                <h1 class="h3 mb-0 text-center"></h1>
+            </header>
+
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="#" data-tab="dashboard">
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#" data-tab="case">
+                                <i class="bi bi-plus-circle"></i> Case Creation
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-4 text-white" href="#" data-tab="pa-upload">
+                                <i class="bi bi-file-earmark-text"></i> Prior Authorization Upload
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-4 text-white" href="#" data-tab="eligibility">
+                                <i class="bi bi-check-circle"></i> Eligibility Check
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-4 text-white" href="#" data-tab="criteria">
+                                <i class="bi bi-clipboard-check"></i> Criteria Check
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-4 text-white" href="#" data-tab="profile-update">
+                                <i class="bi bi-person-lines-fill"></i> Profile Update
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Dashboard Tab -->
+                <div id="dashboard" class="tab-content active">
+                    <h2 class="mt-4">Today's Authorization Summary</h2>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Approved</h5>
+                                    <h2 class="card-text">24</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-danger text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Denied</h5>
+                                    <h2 class="card-text">8</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-warning text-dark">
+                                <div class="card-body">
+                                    <h5 class="card-title">Needs More Info</h5>
+                                    <h2 class="card-text">12</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Queue Section -->
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Current Queue</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Patient Name</th>
+                                                    <th>Current Step</th>
+                                                    <th>Status</th>
+                                                    <th>Last Updated</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="queue-list">
+                                                <!-- Queue items will be populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Creation Tab -->
+                <div id="case" class="tab-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Create New Case</h5>
+
+                                    <!-- Case Creation Form -->
+                                    <form id="case-creation-form" class="mb-4">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="patient-name" class="form-label">Patient Name</label>
+                                                    <input type="text" class="form-control" id="patient-name" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="patient-dob" class="form-label">Date of Birth</label>
+                                                    <input type="text" class="form-control" id="patient-dob"
+                                                        placeholder="MM/DD/YYYY">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label for="patient-medication"
+                                                        class="form-label">Medication</label>
+                                                    <input type="text" class="form-control" id="patient-medication"
+                                                        required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Create Case</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prior Authorization Upload Tab -->
+                <div id="pa-upload" class="tab-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Prior Authorization Upload</h5>
+                                    <div class="mb-3">
+                                        <label class="form-label">PA Form Text</label>
+                                        <textarea class="form-control" id="pa-text" rows="10"
+                                            placeholder="Enter PA form text here..."></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="save-pa">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Eligibility Check Tab -->
+                <div id="eligibility" class="tab-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Eligibility Check</h5>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="eligibility"
+                                            id="eligibility-complete" value="complete">
+                                        <label class="form-check-label" for="eligibility-complete">Complete</label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="eligibility"
+                                            id="eligibility-incomplete" value="incomplete">
+                                        <label class="form-check-label" for="eligibility-incomplete">More Information
+                                            Needed</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Additional Information</label>
+                                        <textarea class="form-control" id="eligibility-notes" rows="5"
+                                            placeholder="Enter any additional information..."></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="save-eligibility">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Criteria Check Tab -->
+                <div id="criteria" class="tab-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Criteria Check</h5>
+
+                                    <!-- Specific Criteria Section -->
+                                    <div class="mb-4">
+                                        <h6>Specific Criteria</h6>
+                                        <div id="ozempic-criteria" style="display: none;">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="specific-criteria"
+                                                    id="criteria-1" value="criteria1">
+                                                <label class="form-check-label" for="criteria-1">For the treatment of
+                                                    type 2 diabetes mellitus in an adult, AND</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="specific-criteria"
+                                                    id="criteria-2" value="criteria2">
+                                                <label class="form-check-label" for="criteria-2">The patient is taking
+                                                    metformin, OR</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="specific-criteria"
+                                                    id="criteria-3" value="criteria3">
+                                                <label class="form-check-label" for="criteria-3">The patient has a
+                                                    documented intolerance or contraindication to metformin, AND</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="specific-criteria"
+                                                    id="criteria-4" value="criteria4">
+                                                <label class="form-check-label" for="criteria-4">OZEMPIC will not be
+                                                    used with another GLP-1 receptor agonist</label>
+                                            </div>
+                                        </div>
+                                        <div id="entresto-criteria" style="display: none;">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="specific-criteria"
+                                                    id="entresto-criteria-1" value="entresto1">
+                                                <label class="form-check-label" for="entresto-criteria-1">For the
+                                                    treatment of heart failure with reduced ejection fraction of 40% or
+                                                    less in an adult patient, AND</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="specific-criteria"
+                                                    id="entresto-criteria-2" value="entresto2">
+                                                <label class="form-check-label" for="entresto-criteria-2">The patient
+                                                    has Class II or III symptoms despite treatment with recommended
+                                                    therapies (e.g. angiotensin converting enzyme inhibitor (ACEI) or
+                                                    angiotensin II receptor antagonist (ARB) in combination with a beta
+                                                    blocker), AND</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="specific-criteria"
+                                                    id="entresto-criteria-3" value="entresto3">
+                                                <label class="form-check-label" for="entresto-criteria-3">ENTRESTO will
+                                                    be administered in combination with other heart failure
+                                                    therapies</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Additional Information -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Additional Information</label>
+                                        <textarea class="form-control" id="criteria-additional-info" rows="3"
+                                            placeholder="Enter any additional information about the criteria..."></textarea>
+                                    </div>
+
+                                    <!-- Approval Decision -->
+                                    <div class="mb-4">
+                                        <h6>Approval Decision</h6>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="criteria"
+                                                id="criteria-approved" value="approved">
+                                            <label class="form-check-label" for="criteria-approved">Approved</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="criteria"
+                                                id="criteria-declined" value="declined">
+                                            <label class="form-check-label" for="criteria-declined">Declined</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Notes Section -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Notes</label>
+                                        <textarea class="form-control" id="criteria-notes" rows="5"
+                                            placeholder="Enter notes about the criteria check..."></textarea>
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary" id="save-criteria">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: File Update Tab -->
+                <div id="step4" class="tab-content">
+                    <h2 class="mt-4">File Update</h2>
+                    <div class="table-responsive mt-4">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>ID</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="step4-list">
+                                <!-- Step 4 items will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Profile Update Tab -->
+                <div id="profile-update" class="tab-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Profile Update</h5>
+                                    <div class="mb-4">
+                                        <label class="form-label">Member Letter</label>
+                                        <textarea class="form-control" id="member-letter" rows="10"
+                                            placeholder="Enter member letter text here..."></textarea>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Upload Documentation</label>
+                                        <input type="file" class="form-control" id="documentation" multiple>
+                                        <small class="text-muted">You can upload multiple files</small>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="finish-profile">Finish</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patient Details Modal -->
+                <div class="modal fade" id="patientDetailsModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Patient Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="patient-info mb-4">
+                                    <p><strong>Name:</strong> <span id="modal-patient-name"></span></p>
+                                    <p><strong>ID:</strong> <span id="modal-patient-id"></span></p>
+                                    <p><strong>Date of Birth:</strong> <span id="modal-patient-dob"></span></p>
+                                </div>
+                                <div id="step-details">
+                                    <!-- Step-specific details will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
